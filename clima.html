@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+   <head>
+         <link rel="stylesheet" href="css/style.css">
+         <script src="jquery/jquery-3.3.1.min.js"></script>
+     
+       <script type="text/javascript">
+       function soloLetras(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
+
+       </script>
+        
+       
+         <title>Proyecto Programacion</title>
+
+   </head>
+   <body>
+   	  <div class ="agrupar">
+
+   	    <header class="cabecera">
+   	    	<h1><font color="black">Clima de Todas las Ciudades</font> </h1>
+   	    </header>
+   	    <section class="seleccion">
+   	    	
+   	    	<pre><font color="green">Buscar Ciudad</font><input type="text" id="textCiudad" placeholder="Ciudad"onkeypress="return soloLetras(event);"></pre>
+   	        <button id="boton" class="btn"  > <font color="blue">Buscar Clima</font> </button>
+
+   	        <article>
+   	        	<img  id="bandera"src="" alt="">
+   	        <h2 id="NombreCiudad"></h2>
+   	        <p id="imagen"></p><img id="iconodeldia" src="" alt="">
+   	        </article>
+   	        <div id="clima5horas">
+
+   	         
+   	        </div>
+   	    </section>
+        <aside class="tabla">
+        	<table>
+        		<tr>
+                    <td><p> temperatura</p></td>
+        			<td><p id="Temperatura1"> </p></td>
+        		</tr>
+        		<tr>
+        			<td>velocidad del viento</td>
+        			<td><p id="VelocidadViento"></p></td>
+        		</tr>
+        		<tr>
+        			<td><p>Nubosidad</p></td>
+        			<td><p id="Nubosidad"></p></td>
+        		</tr>
+                 <tr>
+                 	<td><p>presion atmosferica</p></td>
+                 	<td><p id="Presion"></p></td>
+                 </tr>
+                 <tr>
+                 	<td><p>Humedad</p></td>
+                 	<td><p id="Humedad"></p></td>
+                 </tr>
+                 <tr>
+                 	<td><p>Amanecer</p></td>
+                 	<td><p id="Amanecer"></p></td>
+                 </tr>
+                 <tr>
+                 	<td><p>Atardecer</p></td>
+                 	<td><p id="Atardecer"></p></td>
+                 </tr>
+                 <tr>
+                 	<td><p> Geolocalizacion</p></td>
+                 	<td><p id="Cordenadas"> </p></td>
+                 </tr>
+
+
+        	</table>
+        	
+        </aside>
+
+        <aside class="tabla2">
+          <table>
+            <tr>
+                    <td><p> Alumno: Mirsha Angel Espinoza Ortiz</p></td>
+   
+            </tr>
+            <br>
+            <br>
+            <br>
+            <tr>
+              <td>Materia: Programacion 4</td>
+
+            </tr>
+            <br>
+            <br>
+            <br>
+            <tr>
+              <td><p>Codigo: 212514255</p></td>
+
+            </tr>
+               
+
+          </table>
+          
+        </aside>
+        <footer class="fin">
+        	
+        </footer>	
+   	  </div>
+   	     	  <script>
+function autocomplete(inp, arr) {
+  var currentFocus;
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      this.parentNode.appendChild(a);
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          b = document.createElement("DIV");
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          b.addEventListener("click", function(e) {
+              inp.value = this.getElementsByTagName("input")[0].value;
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        currentFocus++;
+        addActive(x);
+      } else if (e.keyCode == 38) {
+        currentFocus--;
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        e.preventDefault();
+        if (currentFocus > -1) {
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    if (!x) return false;
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
+  document.addEventListener("click", function (e) {
+      closeAllLists(e.target);
+  });
+}
+
+
+var countries = ["Tokyo","Nueva York","Chongqing","Shanghai","Delhi","Beijing","Dhaka","Mumbai","Lagos","Chengdu","Karachi",
+"Guangzhou","Istanbul","Tiajin","Moscow","Kinshasa","Baoding","Lahore","Cairo","Seoul","Jakarta","Wenzhou","Mexico City",
+"Lima","London","Bangkok","Xi'an","Chennai","Bangalore","New York City","Ho Chi minh City","Hyderabad","Shenzhen","Suzhou",
+"Nanjing","Dongguan","Tehran","Quanzhou","Shenyang","Bogota","Hong Kong","Baghdad","Fuzhou","Changsha","Wuhan","Hanoi",
+"Rio de Janeiro","Qingdao","Foshan","Zunyi","Santiago","Riyadh","Ahmedabad","Singapore","Shantou","Ankara","Yangon",
+"Saint Petersburg","Sydney","Casablanca","Melbourne","Alexandria","Kolkata","Surat","Johannesburg","Harbin","Giza","Los Angeles","Buenos Aires","Pune","Toronto","Salvador","Rome","Dubai","Luanda","Quito","Medellin","cali","Paris","kano","Havana","Caracas","Tijuana","Montreal","Kawasaki","Guadalajara","Kyoto","San Antonio","San Diego","Milan","Córdoba",
+"Dallas","Montevideo","Sofia","Hiroshima","Monterrey","Tonala","Cartagena"];
+
+
+autocomplete(document.getElementById("textCiudad"),countries);
+</script>
+     <script src="js/logica.js"></script>
+   </body>
+
+</html>
